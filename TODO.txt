@@ -1,0 +1,1 @@
+1. /inicio/pacientes, la tabla arroja error si es que no existe ningún paciente.

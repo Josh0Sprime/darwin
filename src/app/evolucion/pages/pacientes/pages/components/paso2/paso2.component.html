@@ -1,0 +1,15 @@
+<form [formGroup]="evolucionForm">
+    <div class="row mt-4">
+        <p-messages [(value)]="mensaje"></p-messages>
+        <div class="col">
+            <span class="p-float-label">
+                <textarea style="width: 100%;" placeholder="ingrese evolucion..." formControlName="evolucion"  [rows]="15" pInputTextarea [autoResize]="false"></textarea>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mt-1">
+            <button class="float-end p-button-success" pButton type="button" (click)="siguientePaso()" label="Siguiente"></button>
+        </div>
+    </div>
+</form>

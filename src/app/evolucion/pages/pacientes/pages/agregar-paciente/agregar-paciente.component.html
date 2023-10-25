@@ -1,0 +1,88 @@
+<!-- <button pButton type="button" (click)="ModalPaciente()" label="Agregar paciente" class="p-button-secondary btn-darwin"></button> -->
+<div class="d-flex justify-content-between align-items-center">
+    <button pButton pRipple type="button" (click)="ModalPaciente()" icon="pi pi-plus" label="Ingresar paciente" class="p-button p-button-rounded p-button-success btn-agregar"></button>
+    <div>
+        <input pInputText (input)="enviaValorInputBuscar($event)" class="inputBuscar" type="text" placeholder="Buscar...">
+    </div>
+</div>
+
+<p-dialog header="Ingreso de paciente" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [draggable]="false" [modal]="true" [(visible)]="modalPaciente" [style]="{height: '65vh', width: '50vw'}">
+    <form [formGroup]="nuevoPaciente">
+        <div class="grid flex">
+            <div class="row">
+                <span>
+                    Ingrese Run
+                </span>
+                <div class="mt-1 col p-inputgroup">
+                    <input id="run" type="text" pInputText formControlName="run" (keyup)="formatearRun()" class="form-control">
+                    <button type="button" (click)="BuscarPersona()" pButton class="p-button-success" icon="pi pi-search"></button>
+                </div>
+                <div class="col"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <p-progressBar *ngIf="barraCargando" mode="indeterminate"></p-progressBar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span>
+                        Nombres
+                    </span>
+                    <input id="nombres" type="text" pInputText formControlName="nombres" class="mt-1 form-control">
+                </div>
+                <div class="col-md col-12">
+                    <span>
+                        Nombre social (opcional)
+                    </span>
+                    <input id="apellidos" type="text" pInputText formControlName="social" class="mt-1 form-control">
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <span>
+                        Apellidos
+                    </span>
+                    <input id="apellidos" type="text" pInputText formControlName="apellidos" class="mt-1 form-control">
+                </div>
+                <div class="col-md col-12">
+                    <span>
+                        Género
+                    </span>
+                    <div class="mt-1">
+                        <p-dropdown [options]="genero" formControlName="genero" optionValue="valor" optionLabel="valor" placeholder="Seleccione un género"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <span>
+                        Fecha de nacimiento
+                    </span>
+                    <input id="apellidos" type="date" pInputText formControlName="fecha_nacimiento" class="mt-1 form-control">
+                </div>
+                <div class="col">
+                    <span>
+                        Fecha de ingreso
+                    </span>
+                    <input id="apellidos" type="date" pInputText formControlName="fecha_ingreso" class="mt-1 form-control">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="agregarPaciente()" label="Agregar" styleClass="p-button-text p-button-success"></p-button>
+        <p-button icon="pi pi-times" (click)="modalPaciente=false" label="Cerrar" styleClass="p-button-text p-button-success"></p-button>
+    </ng-template>
+
+</p-dialog>
+<p-toast position="top-right"></p-toast>
+<p-confirmDialog acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle" key="agregarPaciente">
+    <ng-template pTemplate="footer">
+        <button class="mt-5" (click)="rechazarAgregarPaciente()" type="button" pButton icon="pi pi-times" label="No"></button>
+        <button type="button" pButton icon="pi pi-check" (click)="confirmarAgregarPaciente()" label="Si"></button>
+        <button style="margin-right: 100px;" (click)="confirmarYRedireccionar()" type="button" pButton icon="pi pi-check" label="Si y crear evolucion"></button>
+    </ng-template>
+</p-confirmDialog>

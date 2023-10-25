@@ -1,0 +1,25 @@
+.text-information {
+    border: none;
+}
+
+#dv-btn-evolucion {
+    float:right !important;
+}
+
+#info-paciente {
+    color: rgb(0, 0, 0);
+}
+
+.no-editar {
+    border: none;
+}
+
+h3 {
+    font-size: 22px;
+    text-align: center;
+}
+
+.info-paciente {
+    display: flex;
+    justify-content: center !important;
+}

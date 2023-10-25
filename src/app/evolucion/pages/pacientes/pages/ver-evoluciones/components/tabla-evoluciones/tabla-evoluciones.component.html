@@ -1,0 +1,103 @@
+<p-table [value]="evoluciones"  [paginator]="true" [rows]="3" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+        <tr class="tr-tablas">
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th style="text-align: center;">Médico</th>
+            <th>Servicio</th>
+            <th>Estado</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-evoluciones>
+        <tr>
+            <td style="border-top-left-radius: 5px;">{{ evoluciones.fecha_registro | date:'dd-MM-yyyy' }}</td>
+            <td>{{ evoluciones.fecha_registro | date:'hh:mm' }}</td>
+            <td>{{ evoluciones.nombre_medico | titlecase }} {{evoluciones.apellidos_medico | titlecase }} </td>
+            <td>{{ evoluciones.nombre_servicio | titlecase }}</td>
+            <td>{{ evoluciones.nombre_estado }}</td>
+            <td style="border-top-right-radius: 5px;">
+                <button style="margin-right: 10px;" pButton pRipple type="button" (click)="verDetalleEvolucion(evoluciones.id)" pTooltip="Ver detalle evolución" icon="pi pi-eye" class="p-button-rounded p-button-primary p-button-outlined"></button>
+                <button style="margin-right: 10px;" pButton pRipple type="button" pTooltip="Descargar PDF" (click)="detalle_evolucion_pdf(evoluciones.id)" icon="pi pi-download" class="p-button-rounded p-button-success p-button-outlined"></button>
+                <button *ngIf="evoluciones.nombre_estado === 'EN PROCESO'" pButton pRipple type="button" pTooltip="Confirmar" (click)="confirmarEvolucion(evoluciones.id, evoluciones.id_medico)" icon="pi pi-check-circle" class="p-button-rounded p-button-success p-button-outlined"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="text-align: center;">No hay registros de evoluciones</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog header="Detalle de evolución" [breakpoints]="{'960px': '75vw', '640px': '100vw'}"  [draggable]="false" [modal]="true" [(visible)]="modalDetalle" [style]="{width: '50vw'}">
+    <form [formGroup]="detalleEvolucion">
+        <div class="grid flex">
+            <div class="row mt-4">
+                <div class="col-4">
+                    <span>Médico</span>
+                    <span class="p-float-label">  
+                        <!-- <label formControlName="medico"></label>                   -->
+                        <input type="text" pInputText  formControlName="medico" (paste)="false" readonly class="form-control no-editar">
+                    </span>
+                </div>
+                <div class="col-4">
+                    <span>Servicio</span>
+                    <span class="p-float-label">
+                        <input type="text" pInputText  formControlName="servicio" readonly class="form-control no-editar">
+                    </span>
+                </div>
+                <div class="col-3">
+                    <span>Fecha posible alta</span>
+                    <span class="p-float-label">
+                        <input type="text" pInputText  formControlName="fecha_alta" readonly (click)="intentoPegar()" (paste)="false" class="form-control no-editar">
+                    </span>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <p-panel header="Diagnóstico" [toggleable]="true" [collapsed] = "true">
+                    <div class="col-6">
+                        <span class="p-float-label">
+                            <textarea pInputTextarea [rows]="20" [cols]="90" [autoResize]="false" (onPaste)="intentoPegar()" class="no-editar" readonly formControlName="diagnostico"></textarea>
+                        </span>
+                    </div>
+                </p-panel>
+                
+                <p-panel header="Evolución" [toggleable]="true" [collapsed] = "true">
+                    <div class="col-6">
+                        <span class="p-float-label">
+                            <textarea pInputTextarea [rows]="20" [cols]="90" [autoResize]="false" (click)="intentoPegar()" (paste)="false" class="no-editar" readonly formControlName="evolucion"></textarea>
+                        </span>
+                    </div>
+                </p-panel>
+
+                <p-panel header="Estudios complementarios" [toggleable]="true" [collapsed] = "true">
+                    <div class="col-6">
+                        <span class="p-float-label">
+                            <textarea pInputTextarea [rows]="20" [cols]="90" [autoResize]="false" (click)="intentoPegar()" (paste)="false" class="no-editar" readonly formControlName="estudio"></textarea>
+                        </span>
+                    </div>
+                </p-panel>
+
+                <p-panel header="Plan" [toggleable]="true" [collapsed] = "true">
+                    <div class="col-6">
+                        <span class="p-float-label">
+                            <textarea pInputTextarea [rows]="20" [cols]="90" [autoResize]="false" (click)="intentoPegar()" (paste)="false" class="no-editar" readonly formControlName="plan"></textarea>
+                        </span>
+                    </div>
+                </p-panel>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" label="Cerrar" (click)="cerrarModal()" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog acceptLabel="Si" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast></p-toast>

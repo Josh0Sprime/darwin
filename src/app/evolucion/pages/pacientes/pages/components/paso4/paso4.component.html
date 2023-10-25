@@ -1,0 +1,25 @@
+<form [formGroup]="planForm">
+    <div class="row mt-4">
+        <p-messages [(value)]="mensaje"></p-messages>
+        <div class="col">
+            <span class="p-float-label">
+                <textarea [style]="estiloTextArea" [readOnly]="blockearTextArea" style="width: 100%;" formControlName="plan" placeholder="Ingrese plan..." [rows]="15" pInputTextarea></textarea>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mt-1" style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 10px;" class="mt-3">
+                <div style="font-weight: bold; font-size: 18px;">
+                    <p>Editar</p>
+                </div>
+                <div>
+                    <p-inputSwitch (onChange)="cambiarEstadoSwitch()" formControlName="editar"></p-inputSwitch>
+                </div>
+            </div>
+            <div>
+                <button pButton type="button" class="float-end p-button-success" label="Siguiente" (click)="siguiente()"></button>
+            </div>
+        </div>
+    </div>
+</form>

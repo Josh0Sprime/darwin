@@ -1,0 +1,85 @@
+<p-messages key="incorrecto" [(value)]="mensaje"></p-messages>
+<form [formGroup]="agregarEvolucionForm" (submit)="agregarEvolucion()">
+    <div class="row mt-4">
+        <p-messages key="error" [(value)]="mensaje"></p-messages>
+        <div class="col">
+            <h3><strong>Fecha posible alta</strong></h3>
+            <input formControlName="fechaAlta" type="date" pInputText />
+        </div>
+        <div class="col-3">
+            <h3><strong>Servicio</strong></h3>
+            <p-dropdown [options]="servicios" formControlName="servicio" optionValue="id" optionLabel="nombre"></p-dropdown>
+            <!-- <ng-select formControlName="servicio">
+                <ng-option *ngFor="let servicio of servicios" [value]="servicio.id">{{servicio.nombre}}</ng-option>
+            </ng-select> -->
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <p-panel header="Diagnóstico" [toggleable]="true" [collapsed] = "true">
+                <div class="col-12">
+                    <textarea style="width: 100%;" formControlName="diagnostico" pInputTextarea [rows]="15" [autoResize]="false" (paste)="false" class="no-editar" readonly></textarea>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <p-panel header="Evolución" [toggleable]="true" [collapsed] = "true">
+                <div class="col-12">
+                    <span class="p-float-label">
+                        <textarea style="width: 100%;" pInputTextarea formControlName="evolucion" [rows]="15" [autoResize]="false" (paste)="false" class="no-editar" readonly></textarea>
+                    </span>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <p-panel header="Estudio complementarios" [toggleable]="true" [collapsed] = "true">
+                <div class="col-12">
+                    <span class="p-float-label">
+                        <textarea style="width: 100%;" pInputTextarea formControlName="estudio" [rows]="15" [autoResize]="false"  (paste)="false" class="no-editar" readonly></textarea>
+                    </span>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <p-panel header="Plan" [toggleable]="true" [collapsed] = "true">
+                <div class="col-12">
+                    <span class="p-float-label">
+                        <textarea style="width: 100%;" pInputTextarea formControlName="plan" [rows]="15" [autoResize]="false"  (paste)="false" class="no-editar" readonly></textarea>
+                    </span>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+    <div class="mt-4">
+        <div class="interno">
+            <div style="font-size: 15px;">
+                <p>¿Participación de interno de medicina? </p>
+            </div>
+            <div>
+                <p-radioButton name="participacion_interno" formControlName="participacion_interno" label="Sí" [value]="true"></p-radioButton>
+                <p-radioButton class="radio-buttons" name="participacion_interno" formControlName="participacion_interno" label="No" [value]="false"></p-radioButton>
+            </div>
+            <div *ngIf="this.agregarEvolucionForm.controls['participacion_interno'].value == true">
+                <span class="p-float-label">
+                    <input id="input-interno" formControlName="nombre_interno" placeholder="ingrese nombre del interno" type="text" pInputText />
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mt-2">
+            <button *ngIf="confirmarEvolucion === true" style="margin-left: 10px;" class="float-end p-button-success" pButton type="button" label="Guardar y confirmar" type="submit"></button>
+            <button *ngIf="confirmarEvolucion === true" class="float-end p-button-success" (click)="agregarEvolucionEnProceso()" pButton type="button" label="Guardar en borrador" type="button"></button>
+            <button *ngIf="confirmarEvolucion === false" class="float-end p-button-success" (click)="confirmarEvolucionEnProceso()" pButton type="button" label="Confirmar" type="button"></button>
+        </div>
+    </div>
+</form>
+<p-confirmDialog acceptLabel="Si" rejectLabel="No" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+</p-confirmDialog>
+<p-toast></p-toast>

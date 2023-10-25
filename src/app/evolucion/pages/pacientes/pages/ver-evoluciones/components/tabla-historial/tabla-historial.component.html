@@ -1,0 +1,68 @@
+<p-table [value]="episodios"  [paginator]="true" [rows]="3" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+        <tr class="tr-tablas">
+            <th>Episodio</th>
+            <th>Fecha inicio</th>
+            <th>Fecha término</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-episodios>
+        <tr>
+            <td style="border-top-left-radius: 5px;"> {{ "EP" }} {{ episodios.episodio }}</td>
+            <td>{{ episodios.fecha_inicio | date:'dd-MM-yyyy' }}</td>
+            <td>{{ episodios.fecha_termino | date:'dd-MM-yyyy' }}</td>
+            <td style="border-top-right-radius: 5px;"><button pButton pRipple type="button" (click)="VerEvolucionesDelEpisodio(episodios.episodio)" pTooltip="Ver detalle episodio" icon="pi pi-eye" class="p-button-rounded p-button-primary p-button-outlined"></button></td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td></td>
+            <td style="text-align: center;">No hay registros de historial</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-toast></p-toast>
+
+
+<p-dialog header="Evoluciones del Episodio" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [draggable]="false" [modal]="true" [(visible)]="modalEvoluciones" [style]="{width: '50vw'}">
+        <div class="grid flex">
+
+            <p-table [value]="evoluciones_episodio"  [paginator]="true" [rows]="3" [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="header">
+                    <tr class="tr-tablas">
+                        <th>Fecha</th>
+                        <th>Médico</th>
+                        <th>Servicio</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-evoluciones_episodio>
+                    <tr>
+                        <td style="border-top-left-radius: 5px;"> {{ evoluciones_episodio.fecha_registro | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ evoluciones_episodio.nombres_medico }} {{ evoluciones_episodio.apellidos_medico }}</td>
+                        <td>{{ evoluciones_episodio.nombre_servicio }}</td>
+                        <td style="border-top-right-radius: 5px;"><button pButton pRipple type="button" (click)="obtenerDetalleEvolucion(evoluciones_episodio.id_evolucion)" pTooltip="Descargar PDF" icon="pi pi-download" class="p-button-rounded p-button-success p-button-outlined"></button></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td></td>
+                        <td style="text-align: center;">No hay registros de evoluciones</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+
+
+        </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-times" label="Cerrar" (click)="cerrarModalEvolucion()" styleClass="p-button-text p-button-success"></p-button>
+    </ng-template>
+
+</p-dialog>
+<p-toast position="top-right"></p-toast>

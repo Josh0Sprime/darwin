@@ -1,0 +1,69 @@
+<div class="panel" id="info-paciente">
+    <div class="panel-cabecera">
+        <div class="row">
+            <div class="col">
+                <button pButton pRipple type="button" (click)="volverAtras()" icon="pi pi-chevron-left" label="Volver atrás" class="p-button-rounded p-button-secondary"></button>
+                <h1 class="info-paciente"> <strong>Información del paciente</strong></h1>
+            </div>
+        </div>
+    </div>
+    <div class="panel-cuerpo" style="border-width: 1px; border-style: solid; border-color: #2d991f3d; border-radius: 5px;">
+        <div class="row d-flex justify-content-center">
+            <div class="col-3">
+                <h3>Run/Pasaporte: {{infoPaciente?.run}}</h3>
+            </div>
+            <div class="col">
+                <h3>Nombres: {{ infoPaciente?.nombres | titlecase }} {{ infoPaciente?.apellidos | titlecase }}</h3>
+            </div>
+            <div class="col-3">
+                <h3>Edad: {{ edad }}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <h3>Fecha ingreso: {{ fecha_de_ingreso | date: 'dd-MM-yyyy' }}</h3>
+            </div>
+            <div class="col">
+                <h3 *ngIf="ultimaFechaAlta !== 'POR DEFINIR'">Fecha posible alta: {{ ultimaFechaAlta | date:'dd-MM-yyyy' }}</h3>
+                <h3 *ngIf="ultimaFechaAlta == 'POR DEFINIR'">Fecha posible alta: {{ ultimaFechaAlta | titlecase }}</h3>
+            </div>
+            <div class="col-3">
+                <h3>Total de evoluciones: {{ totalEvoluciones }} </h3>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br>
+<div class="panel" *ngIf="ocultarTabla == false">
+    <div *ngIf="estadoEpisodio === 1; else sinEpisodio;" class="panel-cabecera">
+        <button pButton pRipple type="button" (click)="agregarEvolucion()" label="Agregar evolución" icon="pi pi-plus" class="p-button-rounded p-button-success btn-agregar"></button>
+    </div>
+    <ng-template #sinEpisodio>
+        <div>
+            <p-messages [closable]="false" [(value)]="msgs"></p-messages>
+        </div>
+    </ng-template>
+    
+    <div class="col">
+        <p-tabMenu [model]="items" styleClass="menu-admin" [activeItem]="activateItem"></p-tabMenu>
+    </div>
+    <div class="panel-cuerpo">
+        <div class="row">
+            <app-tabla-evoluciones *ngIf="mostrarTablaEvoluciones == true"></app-tabla-evoluciones>
+            <app-tabla-historial *ngIf="mostrarTablaHistorial == true"></app-tabla-historial>
+        </div>
+    </div>
+</div>
+
+<div class="panel contenido" *ngIf="ocultarTabla == true">
+    <div class="panel-cuerpo">
+        <div class="row">
+            <h1>Agregar nueva evolucion</h1>
+        </div>
+        <div>
+           <app-agregar-evolucion></app-agregar-evolucion>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>

@@ -1,0 +1,65 @@
+<div class="cont-medicos panel">
+    <div class="btn-agregarMedico d-flex justify-content-between align-items-center">
+        <button pButton pRipple type="button" (click)="modalMedico()" label="Agrega médico" icon="pi pi-plus" class="p-button-rounded p-button-success btn-agregar"></button>
+        <div>
+            <input pInputText (input)="filtroTablaMedicos($event)" type="text" placeholder="Buscar...">
+        </div>
+    </div>
+    <app-tabla (recargarTabla)="recargarTabla()" [mostrarDatosTabla]="mostrarDatosTabla" [medicos]="medicos"></app-tabla>
+</div>
+<p-dialog  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" header="Agregar nuevo médico" [(visible)]="display" [draggable]="false" [modal]="true" [style]="{width: '30vw'}">
+    <form [formGroup]="medicoForm">
+        <div class="flex">
+            <div class="row">
+                <span>
+                    Ingrese Run
+                </span>
+                <div class="mt-1 col p-inputgroup">
+                    <input (keyup)="formatearRun()" id="run" type="text" pInputText formControlName="run" class="form-control">
+                    <button type="button" (click)="BuscarPersona()" class="p-button-success" pButton icon="pi pi-search"></button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <p-progressBar *ngIf="barraCargando" mode="indeterminate"></p-progressBar>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <span>
+                        Nombres
+                    </span>
+                    <input id="nombres" type="text" pInputText formControlName="nombres" class="mt-1 form-control">
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <span>
+                        Apellidos
+                    </span>
+                    <input id="apellidos" type="text" pInputText formControlName="apellidos" class="mt-1 form-control">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <p style="font-weight: bold;" >Rol médico</p>
+                <div class="col">
+                    <select formControlName="rol" class="select-estado flex  mb-5" style="width: 50%;">
+                        <option *ngFor="let rol of roles" [value]="rol.id">{{rol.rol}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (onClick)="agregarMedico()"  label="Agregar" styleClass="p-button-text p-button-success"></p-button>
+        <p-button icon="pi pi-times" (onClick)="display = false"  label="Cerrar" styleClass="p-button-text p-button-success"></p-button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog 
+    acceptLabel="Si" 
+    rejectLabel="No" 
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" 
+    [style]="{width: '25vw'}">
+</p-confirmDialog>
+<p-toast position="top-right"></p-toast>

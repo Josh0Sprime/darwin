@@ -1,0 +1,12 @@
+.select-estado{
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    height: 35px;
+    border: 1px solid #cbcbcb;
+    border-radius: 5px;
+}
+
+.header{
+    background-color: red;
+}

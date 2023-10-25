@@ -1,0 +1,176 @@
+<div class="row">
+    <div class="col">
+        <div class="panel">
+            <div class="panel-cabecera">
+                <div class="row">
+                    <div class="col">
+                        <h2>
+                            Evoluciones diarias
+                        </h2>
+                    </div>
+                    <div class="col">
+                        <button pButton pRipple type="button" routerLink="pacientes" pTooltip="Agregar evolución"
+                            icon="pi pi-plus"
+                            class="float-end p-button-rounded p-button-success p-button-outlined"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-cuerpo">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <h1 class="panel-info-importante">
+                            <i class="pi pi-book"
+                                style="color: #2C981E; font-size: 30px; font-weight: bold; margin-right: 20px;"></i>
+                            {{evolucionesHoy}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="panel">
+            <div class="panel-cabecera">
+                <div class="row">
+                    <div class="col">
+                        <h2>
+                            Total de altas
+                        </h2>
+                    </div>
+                    <!-- <div class="col">
+        
+                    </div> -->
+                </div>
+            </div>
+            <div class="panel-cuerpo">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <h1 class="panel-info-importante">
+                            <i class="pi pi-check-circle"
+                                style="color: #2C981E; font-size: 30px; font-weight: bold; margin-right: 20px;"></i>
+                            {{altas}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="panel">
+            <div class="panel-cabecera">
+                <div class="row">
+                    <div class="col">
+                        <h2>
+                            Pacientes hospitalizados
+                        </h2>
+                    </div>
+                    <!-- <div class="col">
+        
+                    </div> -->
+                </div>
+            </div>
+            <div class="panel-cuerpo">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <h1 class="panel-info-importante">
+                            <i class="pi pi-user"
+                                style="color: #2C981E; font-size: 30px; font-weight: bold; margin-right: 20px;"></i>
+                            {{pacientes}}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- a -->
+<!-- <div class="row mt-3">
+    <div class="col mt-2">
+        <div class="panel">
+            <div class="panel-cabecera">
+                <h2>
+                    Altas en meses
+                </h2>
+            </div>
+            <div class="panel-cuerpo">
+                <p-chart type="bar" [data]="data" height="210px"></p-chart>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="row mt-3">
+    <div class="col mt-2">
+        <div class="panel">
+            <div class="panel-cabecera">
+                <h2>
+                    Próximas altas
+                </h2>
+            </div>
+            <div class="panel-cuerpo">
+                <p-table [paginator]="true" [rows]="5" [value]="evoluciones" styleClass="p-datatable-sm">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="border-top-left-radius: 5px;">Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Servicio</th>
+                            <th style="border-top-right-radius: 5px;">Fecha de alta</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-evolucion>
+                        <tr style="font-size: 15px;">
+                            <td>{{evolucion.nombres}}</td>
+                            <td>{{evolucion.apellidos}}</td>
+                            <td>{{evolucion.servicio}}</td>
+                            <td>{{evolucion.fecha_alta}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Hoy no existen posibles altas</td>
+                            <td></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <div class="col mt-2">
+        <div class="panel">
+            <div class="panel-cabecera">
+                <h2>
+                    Altas vencidas
+                </h2>
+            </div>
+            <div class="panel-cuerpo">
+                <p-table [paginator]="true" [rows]="5" [value]="altas_vencidas" styleClass="p-datatable-sm">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="border-top-left-radius: 5px;">Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Servicio</th>
+                            <th style="border-top-right-radius: 5px;">Fecha de vencimiento</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-evolucion>
+                        <tr style="font-size: 15px;">
+                            <td>{{evolucion.nombres}}</td>
+                            <td>{{evolucion.apellidos}}</td>
+                            <td>{{evolucion.servicio}}</td>
+                            <td>{{evolucion.fecha_alta}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>No hay altas vencidas</td>
+                            <td></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

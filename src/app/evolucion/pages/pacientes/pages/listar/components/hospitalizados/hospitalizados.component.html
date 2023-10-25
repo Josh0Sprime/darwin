@@ -1,0 +1,40 @@
+<p-table id="table-pacientes"[value]="pacientes" [paginator]="true" [rows]="5"  [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+        <tr class="tr-tablas">
+            <th style="border-top-left-radius: 5px;">Run/Pasaporte</th>
+            <th>Nombre paciente</th>
+            <th>Fecha de ingreso</th>
+            <th>Días de hospitalización</th>
+            <th>Estado</th>
+            <th style="border-top-right-radius: 5px;"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pacientes>
+        <tr>
+            <td>{{ pacientes.run }}</td>
+            <td *ngIf="pacientes.nombres.split(' ').length > 2; else noNombreSocial;"><strong style="font-weight: bold;">{{pacientes.nombres.split(' ',1)}}</strong> {{ pacientes.nombres.split(' ')[1] + ' '+ pacientes.nombres.split(' ')[2]}} {{pacientes.apellidos }} </td>
+            <ng-template #noNombreSocial>
+                <td>{{pacientes.nombres}} {{pacientes.apellidos}}</td>
+            </ng-template>
+            <td>{{ pacientes.fecha_ingreso | date:'dd-MM-yyyy' }}</td>
+            <td>{{ pacientes.dias_hospitalizacion }}</td>
+            <td>{{pacientes.estado_paciente}}</td>
+            <td>
+                <button style="margin-right: 5px !important;" pButton pRipple type="button" icon="pi pi-thumbs-up-fill" (click)="DarAltaPaciente(pacientes.id)" pTooltip="Dar de alta" class="p-button-rounded p-button-success p-button-outlined"></button>
+                <a style="text-decoration: none; float: right;" (click)="capturarIdPaciente(pacientes.id)"   [routerLink]="[ 'evoluciones', pacientes.id]">
+                    <button style="margin-right: 5px !important;" pButton pRipple type="button" icon="pi pi-copy" pTooltip="Ver evoluciones" class="p-button-rounded p-button-primary p-button-outlined"></button>
+                </a>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td></td>
+            <td></td>
+            <td>No hay registros de pacientes.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </ng-template>
+</p-table>

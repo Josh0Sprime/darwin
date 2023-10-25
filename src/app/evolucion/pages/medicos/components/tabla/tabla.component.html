@@ -1,0 +1,75 @@
+<p-table [value]="medicos" [paginator]="true" [rows]="4">
+    <ng-template pTemplate="header">
+        <tr class="tr-tablas">
+            <th style="border-top-left-radius: 5px;">Run/Pasaporte</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Estado</th>
+            <th style="border-top-right-radius: 5px;" class="text-center"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-medicos>
+        <!-- <tr ng *ngIf="mostrarDatosTabla == false">
+            <td><p-skeleton></p-skeleton></td>
+            <td><p-skeleton></p-skeleton></td>
+            <td><p-skeleton></p-skeleton></td>
+            <td><p-skeleton></p-skeleton></td>
+            <td><p-skeleton></p-skeleton></td>
+        </tr> -->
+        <tr>
+            <td>{{medicos.run}}</td>
+            <td>{{medicos.nombres}}</td>
+            <td>{{medicos.apellidos}}</td>
+            <td>{{medicos.estado}}</td>
+            <td class="d-flex justify-content-center">
+                <button (click)="mostrarModalModificar(medicos.id, medicos.run)" pButton type="button" pTooltip="Modificar médico" class="p-button-warning p-button-rounded p-button-outlined" icon="pi pi-user-edit"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [draggable]="false" [modal]="true" header="Modificar médico" [(visible)]="displayModificar" [style]="{width: '30vw'}">
+    <div style="padding: 20px;">
+        <form [formGroup]="modificarMedicoForm">
+            <div class="row">
+                <p style="font-weight: bold;">Nombres médico</p>
+                <div class="col-12 mb-5">
+                    <input formControlName="nombres" style="width: 100%;" placeholder="Nombres" type="text" pInputText />
+                </div>
+                <p style="font-weight: bold;">Apellidos médico</p>
+                <div class="col-12">
+                    <input formControlName="apellidos" style="width: 100%;" placeholder="Apellidos" type="text" pInputText />
+                </div>
+            </div>
+            <div style="display: flex; gap: 50px;" class="mt-3">
+                <div style="width: 100%;">                    
+                    <p style="font-weight: bold;" class="mt-5">Estado médico</p>
+                    <div>    
+                        <select formControlName="id"  *ngFor="let estado of estadoMedico" class="select-estado flex">
+                            <option value={{estado.id}}>{{estado.nombre}}</option>
+                            <option value={{estado.id_contrario}}>{{estado.nombre_contrario}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="width: 100%;">                    
+                    <p style="font-weight: bold;" class="mt-5">Rol médico</p>
+                    <div>    
+                        <select formControlName="rol" class="select-estado flex mb-5">
+                            <option *ngFor="let rol of roles" [value]="rol.id">{{rol.rol}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (onClick)="modificarMedico()" label="Agregar" styleClass="p-button-text p-button-success"></p-button>
+        <p-button icon="pi pi-times" (onClick)="displayModificar = false" label="Cerrar" styleClass="p-button-text p-button-success"></p-button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog 
+    acceptLabel="Si" 
+    rejectLabel="No" 
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" 
+    [style]="{width: '25vw'}">
+</p-confirmDialog>
