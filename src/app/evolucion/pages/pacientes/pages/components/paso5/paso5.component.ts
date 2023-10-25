@@ -67,30 +67,30 @@ export class Paso5Component {
     this.fecha_alta  = fecha_alta;
     this.estudios    = estudio_complementario;
 
-    this.esv.obtenerTodosLosServicios().subscribe(response => {
-      this.servicios = response;
-    });
+    // this.esv.obtenerTodosLosServicios().subscribe(response => {
+    //   this.servicios = response;
+    // });
 
-    esv.obtenerEvolucionConfirmar(id).subscribe((resp: any) => {
-      if(resp.length === 0){ 
-        return
-      }
+    // esv.obtenerEvolucionConfirmar(id).subscribe((resp: any) => {
+    //   if(resp.length === 0){ 
+    //     return
+    //   }
 
-      if(resp[0].id_estado === 1){
-        this.agregarEvolucionForm.patchValue({
-          servicio: resp[0].id_servicio
-        })
-        if(resp[0].interno_medicina != 'no'){
-          this.agregarEvolucionForm.patchValue({
-            participacion_interno: true,
-            nombre_interno: resp[0].interno_medicina
-          })
-        }
-        this.confirmarEvolucion = false;
-        return;
-      }
+    //   if(resp[0].id_estado === 1){
+    //     this.agregarEvolucionForm.patchValue({
+    //       servicio: resp[0].id_servicio
+    //     })
+    //     if(resp[0].interno_medicina != 'no'){
+    //       this.agregarEvolucionForm.patchValue({
+    //         participacion_interno: true,
+    //         nombre_interno: resp[0].interno_medicina
+    //       })
+    //     }
+    //     this.confirmarEvolucion = false;
+    //     return;
+    //   }
      
-    })
+    // })
 
     if(fecha_alta === undefined) {
       this.agregarEvolucionForm.patchValue({
@@ -127,33 +127,33 @@ export class Paso5Component {
       this.cs.confirm({
         message: '¿Esta seguro de realizar esta evolucion?',
         accept : () => {
-          this.esv.agregarEvolucionPaciente().subscribe(async (resp) => {
-            this.msg.add({severity: "success", summary: "Exito!", detail: "La evolucion fue realizada correctamente"})
+          // this.esv.agregarEvolucionPaciente().subscribe(async (resp) => {
+          //   this.msg.add({severity: "success", summary: "Exito!", detail: "La evolucion fue realizada correctamente"})
 
-            let Paciente: any = await this.obtenerDatosPaciente();
-            let Medico: any = await this.obtenerDatosMedico();
-            let Servicio:any = await this.obtenerDatosServicio();
+          //   let Paciente: any = await this.obtenerDatosPaciente();
+          //   let Medico: any = await this.obtenerDatosMedico();
+          //   let Servicio:any = await this.obtenerDatosServicio();
             
-            //limpieza de objeto con datos de la evolucion
-            this.datos_paciente = Paciente;
-            this.datos_medico = Medico;
-            this.datos_servicio = Servicio;
-            this.esv._dataEvolucion[0].diagnostico = '';
-            this.esv._dataEvolucion[0].estudio_complementario = '';
-            this.esv._dataEvolucion[0].evolucion = '';
-            this.esv._dataEvolucion[0].fecha_alta = '';
-            this.esv._dataEvolucion[0].fecha_registro = '';
-            this.esv._dataEvolucion[0].id_medico = 0;
-            this.esv._dataEvolucion[0].id_servicio = 0;
-            this.esv._dataEvolucion[0].plan = '';
-            this.esv._dataEvolucion[0].nombre_interno = '';
-            this.esv._dataEvolucion[0].participacion_interno = false;
-            this.pdfNuevo();
-            setTimeout(() => {
-              const { id_paciente } = this.esv._dataEvolucion[0];
-              this.router.navigate(['/inicio/pacientes/evoluciones', id_paciente]);
-            }, 1000);
-          });
+          //   //limpieza de objeto con datos de la evolucion
+          //   this.datos_paciente = Paciente;
+          //   this.datos_medico = Medico;
+          //   this.datos_servicio = Servicio;
+          //   this.esv._dataEvolucion[0].diagnostico = '';
+          //   this.esv._dataEvolucion[0].estudio_complementario = '';
+          //   this.esv._dataEvolucion[0].evolucion = '';
+          //   this.esv._dataEvolucion[0].fecha_alta = '';
+          //   this.esv._dataEvolucion[0].fecha_registro = '';
+          //   this.esv._dataEvolucion[0].id_medico = 0;
+          //   this.esv._dataEvolucion[0].id_servicio = 0;
+          //   this.esv._dataEvolucion[0].plan = '';
+          //   this.esv._dataEvolucion[0].nombre_interno = '';
+          //   this.esv._dataEvolucion[0].participacion_interno = false;
+          //   this.pdfNuevo();
+          //   setTimeout(() => {
+          //     const { id_paciente } = this.esv._dataEvolucion[0];
+          //     this.router.navigate(['/inicio/pacientes/evoluciones', id_paciente]);
+          //   }, 1000);
+          // });
         }
       });
     }else{
@@ -173,9 +173,9 @@ export class Paso5Component {
     return new Promise((resolve, reject) =>{
       try {
         //obtener datos del paciente
-        this.esv.obenerInformacionDelPaciente(this.idPaciente).subscribe(response =>{
-          resolve(response);
-        });      
+        // this.esv.obenerInformacionDelPaciente(this.idPaciente).subscribe(response =>{
+        //   resolve(response);
+        // });      
       } catch (error) {
         reject(error);
       }
@@ -188,9 +188,9 @@ export class Paso5Component {
     return new Promise((resolve, reject) =>{
       try {
         //obtener datos del medico
-        this.esv.obtenerDatosMedicos(this.esv._dataEvolucion[0].id_medico).subscribe(response =>{
-          resolve(response);
-        });
+        // this.esv.obtenerDatosMedicos(this.esv._dataEvolucion[0].id_medico).subscribe(response =>{
+        //   resolve(response);
+        // });
       } catch (error) {
           reject(error);
       }
@@ -201,9 +201,9 @@ export class Paso5Component {
     return new Promise((resolve, reject) =>{
       try {
         //obtener datos del servicio
-        this.esv.obtenerDatosServicio(this.agregarEvolucionForm.controls["servicio"].value).subscribe(response =>{
-          resolve(response);
-        });      
+        // this.esv.obtenerDatosServicio(this.agregarEvolucionForm.controls["servicio"].value).subscribe(response =>{
+        //   resolve(response);
+        // });      
       } catch (error) {
           reject(error);
       };
@@ -223,13 +223,13 @@ export class Paso5Component {
       this.cs.confirm({
         message: '¿Esta seguro de guardar esta evolucion?',
         accept : ()=> {
-          this.esv.agregarEvolucionPacienteEnProceso().subscribe(resp => {
-            this.msg.add({severity: "success", summary: "Exito!", detail: "La evolucion fue realizada correctamente"})
-            setTimeout(() => {
-              const { id_paciente } = this.esv._dataEvolucion[0];
-              this.router.navigate(['/inicio/pacientes/evoluciones', id_paciente]);
-            }, 1000);
-          });
+          // this.esv.agregarEvolucionPacienteEnProceso().subscribe(resp => {
+          //   this.msg.add({severity: "success", summary: "Exito!", detail: "La evolucion fue realizada correctamente"})
+          //   setTimeout(() => {
+          //     const { id_paciente } = this.esv._dataEvolucion[0];
+          //     this.router.navigate(['/inicio/pacientes/evoluciones', id_paciente]);
+          //   }, 1000);
+          // });
         } 
       });
     } else{
@@ -252,22 +252,22 @@ export class Paso5Component {
       this.cs.confirm({
         message: '¿Esta seguro de confirmar esta evolucion?',
         accept : ()=> {
-          this.esv.confirmarEvolucion(this.id_evolucion).subscribe(async(resp) => {
-            this.msg.add({severity: "success", summary: "Exito!", detail: "La evolucion fue realizada correctamente"})
+          // this.esv.confirmarEvolucion(this.id_evolucion).subscribe(async(resp) => {
+          //   this.msg.add({severity: "success", summary: "Exito!", detail: "La evolucion fue realizada correctamente"})
 
-            let Paciente: any = await this.obtenerDatosPaciente();
-            let Medico: any = await this.obtenerDatosMedico();
-            let Servicio:any = await this.obtenerDatosServicio();
+          //   let Paciente: any = await this.obtenerDatosPaciente();
+          //   let Medico: any = await this.obtenerDatosMedico();
+          //   let Servicio:any = await this.obtenerDatosServicio();
             
-            this.datos_paciente = Paciente;
-            this.datos_medico = Medico;
-            this.datos_servicio = Servicio;
+          //   this.datos_paciente = Paciente;
+          //   this.datos_medico = Medico;
+          //   this.datos_servicio = Servicio;
 
-            this.pdfNuevo();
-            setTimeout(() => {
-              this.router.navigate(['/inicio/pacientes/evoluciones', this.idPaciente]);
-            }, 1000);
-          });
+          //   this.pdfNuevo();
+          //   setTimeout(() => {
+          //     this.router.navigate(['/inicio/pacientes/evoluciones', this.idPaciente]);
+          //   }, 1000);
+          // });
         }
       });
     }

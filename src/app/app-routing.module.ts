@@ -8,8 +8,8 @@ const routes: Routes = [
   {
     path:'inicio',
     loadChildren: () => import('./evolucion/inicio.module').then(m => m.InicioModule),
-    canActivate: [LoginGuard],
-    canLoad: [LoginGuard]
+    // canActivate: [LoginGuard],
+    // canLoad: [LoginGuard]
   },
   {
     path: '',

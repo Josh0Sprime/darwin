@@ -85,19 +85,19 @@ export class AgregarPacienteComponent {
     }
 
     this.barraCargando = true;
-    this.evs.obtenerPacienteFonasa(run).subscribe(resp => {
-      if (resp.nombre === undefined) {
-          this.ms.add({severity: "error", summary: "Ha ocurrido un problema", detail: "No se ha encontrado el usuario, por favor ingresar manualmente"});
-      } else {
-        this.Fonasa = true;
-        this.barraCargando = false;
-        this.nuevoPaciente.patchValue({
-          nombres: `${resp.nombre}`,
-          apellidos: `${resp.apellido_paterno} ${resp.apellido_materno}`,
-          fecha_nacimiento: `${resp.fecha_nacimiento}`
-        });
-      }
-    });
+    // this.evs.obtenerPacienteFonasa(run).subscribe(resp => {
+    //   if (resp.nombre === undefined) {
+    //       this.ms.add({severity: "error", summary: "Ha ocurrido un problema", detail: "No se ha encontrado el usuario, por favor ingresar manualmente"});
+    //   } else {
+    //     this.Fonasa = true;
+    //     this.barraCargando = false;
+    //     this.nuevoPaciente.patchValue({
+    //       nombres: `${resp.nombre}`,
+    //       apellidos: `${resp.apellido_paterno} ${resp.apellido_materno}`,
+    //       fecha_nacimiento: `${resp.fecha_nacimiento}`
+    //     });
+    //   }
+    // });
   }
 
   get IdMedico() {
@@ -150,32 +150,32 @@ export class AgregarPacienteComponent {
     const date = new Date();
     const hora = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     fecha_ingreso = `${fecha_ingreso} ${hora}`;
-    this.evs.AgregarPaciente(
-      run,
-      nombres.toUpperCase(),
-      apellidos.toUpperCase(),
-      fecha_nacimiento,
-      genero.toUpperCase(),
-      fecha_ingreso
-    ).subscribe(response => {
-      if (!response.resp.ok) {
-        this.ms.add({
-          severity: 'error',
-          summary: 'Error al registrar episodio.',
-          detail: 'Este paciente posee un episodio activo.'
-        });
-      } else {
-        this.ms.add({
-          severity: 'success',
-          summary: 'Ingreso exitoso!',
-          detail: 'Se ha registrado un nuevo episodio.'
-        });
-        this.cs.close();
-        this.nuevoPaciente.reset();
-        this.modalPaciente = false;
-        this.recargarTabla.emit();
-      }
-    });
+    // this.evs.AgregarPaciente(
+    //   run,
+    //   nombres.toUpperCase(),
+    //   apellidos.toUpperCase(),
+    //   fecha_nacimiento,
+    //   genero.toUpperCase(),
+    //   fecha_ingreso
+    // ).subscribe(response => {
+    //   if (!response.resp.ok) {
+    //     this.ms.add({
+    //       severity: 'error',
+    //       summary: 'Error al registrar episodio.',
+    //       detail: 'Este paciente posee un episodio activo.'
+    //     });
+    //   } else {
+    //     this.ms.add({
+    //       severity: 'success',
+    //       summary: 'Ingreso exitoso!',
+    //       detail: 'Se ha registrado un nuevo episodio.'
+    //     });
+    //     this.cs.close();
+    //     this.nuevoPaciente.reset();fecha_ingreso
+    //     this.modalPaciente = false;
+    //     this.recargarTabla.emit();
+    //   }
+    // });
   }
 
   confirmarYRedireccionar() {
@@ -190,39 +190,41 @@ export class AgregarPacienteComponent {
 
     const date = new Date();
     const hora = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-    fecha_ingreso = `${fecha_ingreso} ${hora}`;
-    this.evs.AgregarPaciente(
-      run,
-      nombres.toUpperCase(),
-      apellidos.toUpperCase(),
-      fecha_nacimiento,
-      genero.toUpperCase(),
-      fecha_ingreso
-    ).subscribe(response => {
-      if (!response.resp.ok) {
-        this.ms.add({
-          severity: 'error',
-          summary: 'Error al registrar episodio.',
-          detail: 'Este paciente posee un episodio activo.'
-        });
-      } else {
-        this.evs.obtenerIdPaciente(run).subscribe(resp => {
-          const run_paciente = resp[0].id;
-          this.evs._dataEvolucion[0].diagnostico = '';
-          this.evs._dataEvolucion[0].evolucion = '';
-          this.evs._dataEvolucion[0].fecha_alta = '';
-          this.evs._dataEvolucion[0].fecha_registro = '';
-          this.evs._dataEvolucion[0].id_medico = 0;
-          this.evs._dataEvolucion[0].id_paciente = 0;
-          this.evs._dataEvolucion[0].id_servicio = 0;
-          this.evs._dataEvolucion[0].plan = '';
-          this.evs.setIdPaciente = run_paciente;
-          this.evs._dataEvolucion[0].id_medico = this.IdMedico;
+    this.route.navigate(['inicio/pacientes/agregarEvolucion/paso1', 0])
 
-          this.route.navigate(['inicio/pacientes/agregarEvolucion/paso1', run_paciente])
-        })
-      }
-    });
+    fecha_ingreso = `${fecha_ingreso} ${hora}`;
+    // this.evs.AgregarPaciente(
+    //   run,
+    //   nombres.toUpperCase(),
+    //   apellidos.toUpperCase(),
+    //   fecha_nacimiento,
+    //   genero.toUpperCase(),
+    //   fecha_ingreso
+    // ).subscribe(response => {
+    //   if (!response.resp.ok) {
+    //     this.ms.add({
+    //       severity: 'error',
+    //       summary: 'Error al registrar episodio.',
+    //       detail: 'Este paciente posee un episodio activo.'
+    //     });
+    //   } else {
+    //     this.evs.obtenerIdPaciente(run).subscribe(resp => {
+    //       const run_paciente = resp[0].id;
+    //       this.evs._dataEvolucion[0].diagnostico = '';
+    //       this.evs._dataEvolucion[0].evolucion = '';
+    //       this.evs._dataEvolucion[0].fecha_alta = '';
+    //       this.evs._dataEvolucion[0].fecha_registro = '';
+    //       this.evs._dataEvolucion[0].id_medico = 0;
+    //       this.evs._dataEvolucion[0].id_paciente = 0;
+    //       this.evs._dataEvolucion[0].id_servicio = 0;
+    //       this.evs._dataEvolucion[0].plan = '';
+    //       this.evs.setIdPaciente = run_paciente;
+    //       this.evs._dataEvolucion[0].id_medico = this.IdMedico;
+
+    //       this.route.navigate(['inicio/pacientes/agregarEvolucion/paso1', run_paciente])
+    //     })
+    //   }
+    // });
   }
 
   public formatearRun(){

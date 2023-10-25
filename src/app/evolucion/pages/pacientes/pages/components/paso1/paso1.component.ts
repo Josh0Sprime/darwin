@@ -34,39 +34,39 @@ export class Paso1Component implements OnInit {
     this.idPaciente = parseInt(ruta_split[5]);
   }
   ngOnInit(): void {
-      this.sv.obtenerEvolucionPaciente(this.idPaciente).subscribe((resp: any) => {
-        if(resp.ok){
-          (this.sv._dataEvolucion[0].diagnostico != '') ? this.diagnosticoForm.patchValue({ diagnostico: this.sv._dataEvolucion[0].diagnostico }) : 
-          (resp.resultado[0].id_paciente > 0) ? this.diagnosticoForm.patchValue({ diagnostico: resp.resultado[0].diagnostico }) : false;
-          return;
-        }
-        if(!resp.ok){
-          this.sv.obtenerEvolucionConfirmar( this.idPaciente ).subscribe(resp => {
-            this.sv._dataEvolucion[0].fecha_alta = resp[0].fecha_alta;
-            if(resp.length <= 0 || resp[0].id_estado != 1){
-              return;
-            }else{
+      // this.sv.obtenerEvolucionPaciente(this.idPaciente).subscribe((resp: any) => {
+      //   if(resp.ok){
+      //     (this.sv._dataEvolucion[0].diagnostico != '') ? this.diagnosticoForm.patchValue({ diagnostico: this.sv._dataEvolucion[0].diagnostico }) : 
+      //     (resp.resultado[0].id_paciente > 0) ? this.diagnosticoForm.patchValue({ diagnostico: resp.resultado[0].diagnostico }) : false;
+      //     return;
+      //   }
+      //   if(!resp.ok){
+      //     this.sv.obtenerEvolucionConfirmar( this.idPaciente ).subscribe(resp => {
+      //       this.sv._dataEvolucion[0].fecha_alta = resp[0].fecha_alta;
+      //       if(resp.length <= 0 || resp[0].id_estado != 1){
+      //         return;
+      //       }else{
               
-              this.sv._dataEvolucion[0].diagnostico === '' ? (this.diagnosticoForm.patchValue({diagnostico: resp[0].diagnostico}),
-              this.fecha_alta = resp[0].fecha_alta) : 
-              this.diagnosticoForm.patchValue({diagnostico: this.sv._dataEvolucion[0].diagnostico});
-              return;
-            }
-          })
-          if(this.sv._dataEvolucion[0].diagnostico != ''){
-            this.diagnosticoForm.patchValue({
-              diagnostico: this.sv._dataEvolucion[0].diagnostico
-            })
-          }
-          this.diagnosticoForm.patchValue({
-            editar: true
-          })
+      //         this.sv._dataEvolucion[0].diagnostico === '' ? (this.diagnosticoForm.patchValue({diagnostico: resp[0].diagnostico}),
+      //         this.fecha_alta = resp[0].fecha_alta) : 
+      //         this.diagnosticoForm.patchValue({diagnostico: this.sv._dataEvolucion[0].diagnostico});
+      //         return;
+      //       }
+      //     })
+      //     if(this.sv._dataEvolucion[0].diagnostico != ''){
+      //       this.diagnosticoForm.patchValue({
+      //         diagnostico: this.sv._dataEvolucion[0].diagnostico
+      //       })
+      //     }
+      //     this.diagnosticoForm.patchValue({
+      //       editar: true
+      //     })
          
-          this.blockearTextArea = false;
-          this.estiloTextArea = 'width: 100%;';
-        }
+      //     this.blockearTextArea = false;
+      //     this.estiloTextArea = 'width: 100%;';
+      //   }
        
-      })
+      // })
       
      
   }

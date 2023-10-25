@@ -28,37 +28,37 @@ export class Paso3Component {
     this.idPaciente = sv._dataEvolucion[0].id_paciente
   }
   ngOnInit(): void {
-    this.sv.obtenerEvolucionPaciente(this.idPaciente).subscribe((resp: any) => {
-      if(resp.ok){
-        (this.sv._dataEvolucion[0].estudio_complementario != '') ? this.estudiosForm.patchValue({ estudio: this.sv._dataEvolucion[0].estudio_complementario }) : 
-        (resp.resultado[0].id_paciente > 0) ? this.estudiosForm.patchValue({ estudio: resp.resultado[0].estudios_complementarios }) : false;
-        return;
-      }
-      if(!resp.ok){
-        this.sv.obtenerEvolucionConfirmar( this.idPaciente ).subscribe(resp => {
-          if(resp.length <= 0 || resp[0].id_estado != 1){
+    // this.sv.obtenerEvolucionPaciente(this.idPaciente).subscribe((resp: any) => {
+    //   if(resp.ok){
+    //     (this.sv._dataEvolucion[0].estudio_complementario != '') ? this.estudiosForm.patchValue({ estudio: this.sv._dataEvolucion[0].estudio_complementario }) : 
+    //     (resp.resultado[0].id_paciente > 0) ? this.estudiosForm.patchValue({ estudio: resp.resultado[0].estudios_complementarios }) : false;
+    //     return;
+    //   }
+    //   if(!resp.ok){
+    //     this.sv.obtenerEvolucionConfirmar( this.idPaciente ).subscribe(resp => {
+    //       if(resp.length <= 0 || resp[0].id_estado != 1){
            
-            return
-          }
-          this.sv._dataEvolucion[0].estudio_complementario === '' ? this.estudiosForm.patchValue({estudio: resp[0].estudios_complementarios}) : 
-          this.estudiosForm.patchValue({estudio: this.sv._dataEvolucion[0].estudio_complementario});
-          return;
-        })
+    //         return
+    //       }
+    //       this.sv._dataEvolucion[0].estudio_complementario === '' ? this.estudiosForm.patchValue({estudio: resp[0].estudios_complementarios}) : 
+    //       this.estudiosForm.patchValue({estudio: this.sv._dataEvolucion[0].estudio_complementario});
+    //       return;
+    //     })
         
-        if(this.sv._dataEvolucion[0].estudio_complementario != ''){
-          this.estudiosForm.patchValue({
-            estudio: this.sv._dataEvolucion[0].estudio_complementario
-          })
-        }
-        this.estudiosForm.patchValue({
-          editar: true
-        })
-        this.blockearTextArea = false;
-        this.estiloTextArea = 'width: 100%;';
-      }
+    //     if(this.sv._dataEvolucion[0].estudio_complementario != ''){
+    //       this.estudiosForm.patchValue({
+    //         estudio: this.sv._dataEvolucion[0].estudio_complementario
+    //       })
+    //     }
+    //     this.estudiosForm.patchValue({
+    //       editar: true
+    //     })
+    //     this.blockearTextArea = false;
+    //     this.estiloTextArea = 'width: 100%;';
+    //   }
       
 
-    })
+    // })
   
   }
   siguientePaso(){

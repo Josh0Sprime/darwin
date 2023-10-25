@@ -27,47 +27,47 @@ export class HospitalizadosComponent {
       message: '¿Está seguro que desea dar de alta a este paciente?',
       key: 'darDeAlta',
       accept: () => {
-        this.ev.verificarEvolucionesPaciente( id ).subscribe(resp => {
-          if(resp.evoluciones){
-            this.ev.DarDeAlta(id).subscribe((response: any) => {
-              if (response.ok) {
-                this.ms.add({
-                  severity:'success', 
-                  summary:'Alta exitosa', 
-                  detail:'El paciente ha sido dado de alta.'
-                });
-                this.darDeAlta.emit(id);
-              } 
+        // this.ev.verificarEvolucionesPaciente( id ).subscribe(resp => {
+        //   if(resp.evoluciones){
+        //     this.ev.DarDeAlta(id).subscribe((response: any) => {
+        //       if (response.ok) {
+        //         this.ms.add({
+        //           severity:'success', 
+        //           summary:'Alta exitosa', 
+        //           detail:'El paciente ha sido dado de alta.'
+        //         });
+        //         this.darDeAlta.emit(id);
+        //       } 
     
-              else if(response.error?.apto === false){
-                this.ms.add(
-                  {
-                    severity:'error', 
-                    summary:'Error al dar de alta', 
-                    detail:'Este paciente posee evoluciones pendientes.'
-                  }
-                );
-              }
-              else {
-                this.ms.add(
-                  {
-                    severity:'error', 
-                    summary:'Error al dar de alta', 
-                    detail:'Ha ocurrido un error inesperado, Por favor intente nuevamente.'
-                  }
-                );
-              }
-            })
-          }else{
-            this.ms.add(
-              {
-                severity:'error', 
-                summary:'Error al dar de alta', 
-                detail:'No se puede dar de alta a este paciente.'
-              }
-            );
-          }
-        })
+        //       else if(response.error?.apto === false){
+        //         this.ms.add(
+        //           {
+        //             severity:'error', 
+        //             summary:'Error al dar de alta', 
+        //             detail:'Este paciente posee evoluciones pendientes.'
+        //           }
+        //         );
+        //       }
+        //       else {
+        //         this.ms.add(
+        //           {
+        //             severity:'error', 
+        //             summary:'Error al dar de alta', 
+        //             detail:'Ha ocurrido un error inesperado, Por favor intente nuevamente.'
+        //           }
+        //         );
+        //       }
+        //     })
+        //   }else{
+        //     this.ms.add(
+        //       {
+        //         severity:'error', 
+        //         summary:'Error al dar de alta', 
+        //         detail:'No se puede dar de alta a este paciente.'
+        //       }
+        //     );
+        //   }
+        // })
         
       }
     });

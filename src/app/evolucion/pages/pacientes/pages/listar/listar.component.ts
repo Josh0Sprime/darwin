@@ -59,10 +59,10 @@ export class ListarComponent implements OnInit {
   }
 
   cargarTablaAlta(){
-    this.evs.obtenerPacientesAlta().subscribe(resp => {
-      this.pacientesAlta = resp;
-      this.pacientesFiltroAlta = resp;
-    })
+    // this.evs.obtenerPacientesAlta().subscribe(resp => {
+    //   this.pacientesAlta = resp;
+    //   this.pacientesFiltroAlta = resp;
+    // })
   }
 
   restaFechas = function(f1:any, f2:any) {
@@ -82,39 +82,39 @@ export class ListarComponent implements OnInit {
   
 
   CargarTablaPacientes(){
-    this.evs.ListadoTodosLosPacientes().subscribe(response => {
-      if(response.ok === false){
-        this.mostrarDatosTabla = false;
-        return;
-      }
+    // this.evs.ListadoTodosLosPacientes().subscribe(response => {
+    //   if(response.ok === false){
+    //     this.mostrarDatosTabla = false;
+    //     return;
+    //   }
 
-      let fecha = Date.now();
-      let hoy = new Date(fecha);
-      let hoyFormateado:string = hoy.toLocaleDateString().toString();
+    //   let fecha = Date.now();
+    //   let hoy = new Date(fecha);
+    //   let hoyFormateado:string = hoy.toLocaleDateString().toString();
 
-      let data_pacientes = response.map((res: Paciente) => {
+    //   let data_pacientes = response.map((res: Paciente) => {
 
-        //variables para obtener las fechas de ingreso de los pacientes
-        res.fecha_ingreso = res.fecha_ingreso!.slice(0, 'yyyy-mm-dd'.length);
+    //     //variables para obtener las fechas de ingreso de los pacientes
+    //     res.fecha_ingreso = res.fecha_ingreso!.slice(0, 'yyyy-mm-dd'.length);
 
-        let fechaDate = new Date(res.fecha_ingreso); 
-        let fechaFromateada = this.formatDate(fechaDate);
+    //     let fechaDate = new Date(res.fecha_ingreso); 
+    //     let fechaFromateada = this.formatDate(fechaDate);
         
-        let DiasDiferencia = this.restaFechas(fechaFromateada,hoyFormateado);
+    //     let DiasDiferencia = this.restaFechas(fechaFromateada,hoyFormateado);
 
-        if(DiasDiferencia === 0) {
-          res.dias_hospitalizacion = 'Recien ingresado'
-        } else {
-          res.dias_hospitalizacion = `${DiasDiferencia} días`
-        }
-        return res;
-      });
+    //     if(DiasDiferencia === 0) {
+    //       res.dias_hospitalizacion = 'Recien ingresado'
+    //     } else {
+    //       res.dias_hospitalizacion = `${DiasDiferencia} días`
+    //     }
+    //     return res;
+    //   });
 
-      this.pacientes = data_pacientes;
-      this.pacientesFiltro = data_pacientes
-      this.mostrarDatosTabla = false;
+    //   this.pacientes = data_pacientes;
+    //   this.pacientesFiltro = data_pacientes
+    //   this.mostrarDatosTabla = false;
 
-    });
+    // });
   }
 
 

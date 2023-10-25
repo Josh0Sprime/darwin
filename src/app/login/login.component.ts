@@ -30,21 +30,21 @@ export class LoginComponent {
   login(){
     if(this.loginForm.valid){
       const { usuario, password } = this.loginForm.value;
-      this.sv.login( usuario, password ).subscribe(resp => {
-        if(resp.ok){
-          this.router.navigateByUrl('inicio')
-          this.sv.setRolUsuario = resp.rol;
-          const primerNombre = resp.nombre.split(' ', 1).toString();
-          const inicialApellidoPaterno = resp.apellidos.split(' ', 1).toString().substring(0,1).toUpperCase();
-          const nombreMayus = primerNombre.charAt(0).toUpperCase();
-        this.sv.usuario = `${nombreMayus}${primerNombre.substring(1)} ${inicialApellidoPaterno}.`;
-        this.sv.id_usuario = resp.id_usuario;
-        }else{
-          this.errorLogin = true;
-          this.errorCampoPassword = false;
-          this.errorCampoUsuario = false;
-        }
-      })
+      this.router.navigateByUrl('inicio')
+      // this.sv.login( usuario, password ).subscribe(resp => {
+      //   if(resp.ok){
+      //     this.sv.setRolUsuario = resp.rol;
+      //     const primerNombre = resp.nombre.split(' ', 1).toString();
+      //     const inicialApellidoPaterno = resp.apellidos.split(' ', 1).toString().substring(0,1).toUpperCase();
+      //     const nombreMayus = primerNombre.charAt(0).toUpperCase();
+      //   this.sv.usuario = `${nombreMayus}${primerNombre.substring(1)} ${inicialApellidoPaterno}.`;
+      //   this.sv.id_usuario = resp.id_usuario;
+      //   }else{
+      //     this.errorLogin = true;
+      //     this.errorCampoPassword = false;
+      //     this.errorCampoUsuario = false;
+      //   }
+      // })
       
     }else{
       if(this.loginForm.value["password"] === ''){

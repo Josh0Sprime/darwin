@@ -52,48 +52,48 @@ export class VerEvolucionesComponent {
     this.idPaciente = id;
     evs._dataEvolucion[0].id_paciente = id;
     //constular estado de ultimo episodio del paciente
-    evs.consultarEstadoEpisodio(this.idPaciente).subscribe(resp => {
-        if(resp.ok){
-          this.estadoEpisodio = resp.resp[0].id_estado;
-          if(this.estadoEpisodio === 2){
-            this.msgs = [
-              {
-                severity: 'info',
-                summary: 'Paciente sin episodio activo.'
-              }
-            ]
-          }
-        }
-    })
+    // evs.consultarEstadoEpisodio(this.idPaciente).subscribe(resp => {
+    //     if(resp.ok){
+    //       this.estadoEpisodio = resp.resp[0].id_estado;
+    //       if(this.estadoEpisodio === 2){
+    //         this.msgs = [
+    //           {
+    //             severity: 'info',
+    //             summary: 'Paciente sin episodio activo.'
+    //           }
+    //         ]
+    //       }
+    //     }
+    // })
     
     //obtener ultima fecha de alta y el total de evoluciones del paciente
-    this.evs.obenerInformacionAdicionalPaciente(this.idPaciente).subscribe((response: any) =>{
-      this.ultimaFechaAlta = response[0].ultimaFechaAlta
-      this.totalEvoluciones = response[0].total_evoluciones;
-    })
+    // this.evs.obenerInformacionAdicionalPaciente(this.idPaciente).subscribe((response: any) =>{
+    //   this.ultimaFechaAlta = response[0].ultimaFechaAlta
+    //   this.totalEvoluciones = response[0].total_evoluciones;
+    // })
 
     //obtener la informacion del paciente para cargarla en el panel superior
-    this.evs.obenerInformacionDelPaciente(this.idPaciente).subscribe(response =>{
-      this.infoPaciente = response[0];
+    // this.evs.obenerInformacionDelPaciente(this.idPaciente).subscribe(response =>{
+    //   this.infoPaciente = response[0];
 
-      this.formatearFecha(response[0].fecha_ingreso!);
+    //   this.formatearFecha(response[0].fecha_ingreso!);
 
-      //calcular Edad
-      let fecha_nacimiento =  new Date (this.infoPaciente.fecha_nacimiento);
-      let hoy = new Date();
-      let edad = hoy.getFullYear() - fecha_nacimiento.getFullYear();
-      let diferenciaMeses = hoy.getMonth() - fecha_nacimiento.getMonth();
-      if(diferenciaMeses < 0 ||  ( diferenciaMeses === 0 && hoy.getDate() < fecha_nacimiento.getDate() )){
-        edad --;
-      } 
-      this.edad = `${edad} años`;
-    })
+    //   //calcular Edad
+    //   let fecha_nacimiento =  new Date (this.infoPaciente.fecha_nacimiento);
+    //   let hoy = new Date();
+    //   let edad = hoy.getFullYear() - fecha_nacimiento.getFullYear();
+    //   let diferenciaMeses = hoy.getMonth() - fecha_nacimiento.getMonth();
+    //   if(diferenciaMeses < 0 ||  ( diferenciaMeses === 0 && hoy.getDate() < fecha_nacimiento.getDate() )){
+    //     edad --;
+    //   } 
+    //   this.edad = `${edad} años`;
+    // })
 
 
     //obtener todas las evoluciones que posee el paciente.
-    this.evs.obtenerEvolucionesPaciente(this.idPaciente).subscribe(response => {
-      this.evoluciones = response;
-    })
+    // this.evs.obtenerEvolucionesPaciente(this.idPaciente).subscribe(response => {
+    //   this.evoluciones = response;
+    // })
   }
 
 
@@ -109,18 +109,18 @@ export class VerEvolucionesComponent {
 
   verDetalleEvolucion = (idEvolucion: number) => {
     this.modalDetalle = true
-    this.evs.obtenerDetalleDeEvolucion(idEvolucion).subscribe( response =>{
-      this.Array_detalleEvolucion = response;
+    // this.evs.obtenerDetalleDeEvolucion(idEvolucion).subscribe( response =>{
+    //   this.Array_detalleEvolucion = response;
     
-      let nombre_medico = `${this.Array_detalleEvolucion[0].nombres_medico?.split(' ',1)} ${this.Array_detalleEvolucion[0].apellidos_medico}`;
+    //   let nombre_medico = `${this.Array_detalleEvolucion[0].nombres_medico?.split(' ',1)} ${this.Array_detalleEvolucion[0].apellidos_medico}`;
   
-      this.detalleEvolucion.controls["medico"].setValue(nombre_medico);
-      this.detalleEvolucion.controls["servicio"].setValue(this.Array_detalleEvolucion[0].nombre_servicio);
-      this.detalleEvolucion.controls["fecha_alta"].setValue( new Date(this.Array_detalleEvolucion[0].fecha_alta).toLocaleDateString());
-      this.detalleEvolucion.controls["diagnostico"].setValue(this.Array_detalleEvolucion[0].diagnostico);
-      this.detalleEvolucion.controls["evolucion"].setValue(this.Array_detalleEvolucion[0].evolucion);
-      this.detalleEvolucion.controls["plan"].setValue(this.Array_detalleEvolucion[0].plan);
-    })
+    //   this.detalleEvolucion.controls["medico"].setValue(nombre_medico);
+    //   this.detalleEvolucion.controls["servicio"].setValue(this.Array_detalleEvolucion[0].nombre_servicio);
+    //   this.detalleEvolucion.controls["fecha_alta"].setValue( new Date(this.Array_detalleEvolucion[0].fecha_alta).toLocaleDateString());
+    //   this.detalleEvolucion.controls["diagnostico"].setValue(this.Array_detalleEvolucion[0].diagnostico);
+    //   this.detalleEvolucion.controls["evolucion"].setValue(this.Array_detalleEvolucion[0].evolucion);
+    //   this.detalleEvolucion.controls["plan"].setValue(this.Array_detalleEvolucion[0].plan);
+    // })
   }
 
   
@@ -143,7 +143,7 @@ export class VerEvolucionesComponent {
   mostrarEvoluciones(){
     this.mostrarTablaEvoluciones = true;
     this.mostrarTablaHistorial = false;
-  }
+  } 
 
   mostrarHistorial(){
     this.mostrarTablaEvoluciones = false;
@@ -151,25 +151,25 @@ export class VerEvolucionesComponent {
   }
 
   agregarEvolucion(){
-    this.evs.validarEvolucion( this.idPaciente ).subscribe(resp => {
-      if(resp.ok){
-        const { id } = this.rutaActiva.snapshot.params;
+    // this.evs.validarEvolucion( this.idPaciente ).subscribe(resp => {
+    //   if(resp.ok){
+    //     const { id } = this.rutaActiva.snapshot.params;
 
-        this.evs.setIdPaciente = id;
-        this.evs._dataEvolucion[0].diagnostico = '';
-        this.evs._dataEvolucion[0].evolucion = '';
-        this.evs._dataEvolucion[0].fecha_alta = '';
-        this.evs._dataEvolucion[0].fecha_registro = '';
-        this.evs._dataEvolucion[0].id_medico = 0;
-        this.evs._dataEvolucion[0].id_paciente = 0;
-        this.evs._dataEvolucion[0].id_servicio = 0;
-        this.evs._dataEvolucion[0].plan = '';
-        this.evs._dataEvolucion[0].estudio_complementario = '';
-        this.router.navigate(['/inicio/pacientes/agregarEvolucion/paso1', this.idPaciente]);
-      }else{
-        this.ms.add({severity: 'error', summary: 'Error', detail: 'Se debe confirmar la ultima evolucion para generar una nueva.'})
-      }
-    })
+    //     this.evs.setIdPaciente = id;
+    //     this.evs._dataEvolucion[0].diagnostico = '';
+    //     this.evs._dataEvolucion[0].evolucion = '';
+    //     this.evs._dataEvolucion[0].fecha_alta = '';
+    //     this.evs._dataEvolucion[0].fecha_registro = '';
+    //     this.evs._dataEvolucion[0].id_medico = 0;
+    //     this.evs._dataEvolucion[0].id_paciente = 0;
+    //     this.evs._dataEvolucion[0].id_servicio = 0;
+    //     this.evs._dataEvolucion[0].plan = '';
+    //     this.evs._dataEvolucion[0].estudio_complementario = '';
+    //     this.router.navigate(['/inicio/pacientes/agregarEvolucion/paso1', this.idPaciente]);
+    //   }else{
+    //     this.ms.add({severity: 'error', summary: 'Error', detail: 'Se debe confirmar la ultima evolucion para generar una nueva.'})
+    //   }
+    // })
   }
 
 }

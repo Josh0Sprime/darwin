@@ -26,36 +26,36 @@ export class Paso4Component {
   constructor(private fb: FormBuilder, private ar: ActivatedRoute, private router: Router, private es: EvolucionService){
     this.idPaciente = es._dataEvolucion[0].id_paciente
 
-    this.es.obtenerEvolucionPaciente(this.idPaciente).subscribe((resp: any) => {
-      if(resp.ok){
-        (this.es._dataEvolucion[0].plan != '') ? this.planForm.patchValue({ plan: this.es._dataEvolucion[0].plan }) : 
-        (resp.resultado[0].id_paciente > 0) ? this.planForm.patchValue({ plan: resp.resultado[0].plan }) : false;
-        return;
-      }
-      if(!resp.ok){
-        this.es.obtenerEvolucionConfirmar( this.idPaciente ).subscribe(resp => {
-          if(resp.length <= 0 || resp[0].id_estado != 1){
+    // this.es.obtenerEvolucionPaciente(this.idPaciente).subscribe((resp: any) => {
+    //   if(resp.ok){
+    //     (this.es._dataEvolucion[0].plan != '') ? this.planForm.patchValue({ plan: this.es._dataEvolucion[0].plan }) : 
+    //     (resp.resultado[0].id_paciente > 0) ? this.planForm.patchValue({ plan: resp.resultado[0].plan }) : false;
+    //     return;
+    //   }
+    //   if(!resp.ok){
+    //     this.es.obtenerEvolucionConfirmar( this.idPaciente ).subscribe(resp => {
+    //       if(resp.length <= 0 || resp[0].id_estado != 1){
 
-            return
-          }
-          this.es._dataEvolucion[0].plan === '' ? this.planForm.patchValue({plan: resp[0].plan}) : 
-          this.planForm.patchValue({plan: this.es._dataEvolucion[0].plan});
-          return;
-        })
-        if(this.es._dataEvolucion[0].plan != ''){
-          this.planForm.patchValue({
-            plan: this.es._dataEvolucion[0].plan 
-          })
-        }
-        this.planForm.patchValue({
-          editar: true
-        })
-        this.blockearTextArea = false;
-        this.estiloTextArea = 'width: 100%;';
-      }
+    //         return
+    //       }
+    //       this.es._dataEvolucion[0].plan === '' ? this.planForm.patchValue({plan: resp[0].plan}) : 
+    //       this.planForm.patchValue({plan: this.es._dataEvolucion[0].plan});
+    //       return;
+    //     })
+    //     if(this.es._dataEvolucion[0].plan != ''){
+    //       this.planForm.patchValue({
+    //         plan: this.es._dataEvolucion[0].plan 
+    //       })
+    //     }
+    //     this.planForm.patchValue({
+    //       editar: true
+    //     })
+    //     this.blockearTextArea = false;
+    //     this.estiloTextArea = 'width: 100%;';
+    //   }
      
 
-    })
+    // })
     
 
   }

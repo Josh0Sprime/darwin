@@ -12,7 +12,7 @@ export class LoginService {
   private url: string = environment.baseUrl
   private _usuario!: string;
   private _id_usuario!: number;
-  private rolUsuario!: number;
+  private rolUsuario: number = 1;
 
   get getRolUsuario(){
     return this.rolUsuario;

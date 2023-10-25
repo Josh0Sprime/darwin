@@ -25,41 +25,41 @@ export class InicioComponent {
   }
 
   constructor(private es: EvolucionService) {
-    this.es.obtenerAltasHoy().subscribe({
-      next : (res) => {
-        this.evoluciones = res.res;
-        for(let i = 0; i < this.evoluciones.length; i++){
-          this.evoluciones[i].fecha_alta = this.formatearFecha(res.res[i].fecha_alta);
-         }
-      },
-      // error: (err) => this.evoluciones = [],
-    });
+    // this.es.obtenerAltasHoy().subscribe({
+    //   next : (res) => {
+    //     this.evoluciones = res.res;
+    //     for(let i = 0; i < this.evoluciones.length; i++){
+    //       this.evoluciones[i].fecha_alta = this.formatearFecha(res.res[i].fecha_alta);
+    //      }
+    //   },
+    //   // error: (err) => this.evoluciones = [],
+    // });
 
-    this.es.obtenerAltas().subscribe({
-      next : (res) => this.altas = res.res[0].contador,
-      error: (err) => this.altas = 0,
-    });
+    // this.es.obtenerAltas().subscribe({
+    //   next : (res) => this.altas = res.res[0].contador,
+    //   error: (err) => this.altas = 0,
+    // });
 
-    this.es.obtenerPacientes().subscribe({
-      next : (res) => this.pacientes = res.ok[0].contador,
-      error: (err) => this.pacientes = 0,
-    });
+    // this.es.obtenerPacientes().subscribe({
+    //   next : (res) => this.pacientes = res.ok[0].contador,
+    //   error: (err) => this.pacientes = 0,
+    // });
 
-    this.es.obtenerEvolucionesHoy().subscribe({
-      next : (res) => {
-        this.evolucionesHoy = res.ok[0].contador;
-      },
-      error: (err) => this.evolucionesHoy = 0,
-    });
+    // this.es.obtenerEvolucionesHoy().subscribe({
+    //   next : (res) => {
+    //     this.evolucionesHoy = res.ok[0].contador;
+    //   },
+    //   error: (err) => this.evolucionesHoy = 0,
+    // });
 
-    this.es.obtenerAltasVencidas().subscribe({
-      next: (res) => {
-        this.altas_vencidas = res.ok;
-        for(let i = 0; i < this.altas_vencidas.length; i++){
-         this.altas_vencidas[i].fecha_alta = this.formatearFecha(res.ok[i].fecha_alta);
-        }
-      }
-    });
+    // this.es.obtenerAltasVencidas().subscribe({
+    //   next: (res) => {
+    //     this.altas_vencidas = res.ok;
+    //     for(let i = 0; i < this.altas_vencidas.length; i++){
+    //      this.altas_vencidas[i].fecha_alta = this.formatearFecha(res.ok[i].fecha_alta);
+    //     }
+    //   }
+    // });
   }
 
   formatearFecha(fechaString: string) {

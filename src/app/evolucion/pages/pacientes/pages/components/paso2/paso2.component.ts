@@ -21,41 +21,41 @@ export class Paso2Component {
     let ruta = this.router.url;
     let ruta_split = ruta.split('/');
     this.idPaciente = parseInt(ruta_split[5]);
-    this.sv.obtenerEvolucionPaciente(this.idPaciente).subscribe((resp: any) => {
-      if(resp.ok){
-        if(resp.resultado[0].estadoEvolucion === 1){
-          return;
-        }
-        sv._dataEvolucion[0].fecha_alta = resp.resultado[0].fecha_alta;
+    // this.sv.obtenerEvolucionPaciente(this.idPaciente).subscribe((resp: any) => {
+    //   if(resp.ok){
+    //     if(resp.resultado[0].estadoEvolucion === 1){
+    //       return;
+    //     }
+    //     sv._dataEvolucion[0].fecha_alta = resp.resultado[0].fecha_alta;
 
-      }
-      if(!resp.ok){
-        this.sv.obtenerEvolucionConfirmar( this.idPaciente ).subscribe(resp => {
-          if(resp.length <= 0 || resp[0].id_estado != 1){
-            return
-          }else{
-            if(this.sv._dataEvolucion[0].evolucion != ''){
-              this.evolucionForm.patchValue({
-                evolucion:  this.sv._dataEvolucion[0].evolucion
-              })
-              sv._dataEvolucion[0].fecha_alta = resp[0].fecha_alta;
-              return;
-            }
-            resp.length <= 0 ? false : this.evolucionForm.patchValue({ evolucion: resp[0].evolucion });
-            sv._dataEvolucion[0].fecha_alta = resp[0].fecha_alta;
-            return;
-          }
-        }
-        )
-        if(this.sv._dataEvolucion[0].evolucion != ''){
-          this.evolucionForm.patchValue({
-            evolucion: this.sv._dataEvolucion[0].evolucion
-          })
-        }
-      }
+    //   }
+    //   if(!resp.ok){
+    //     this.sv.obtenerEvolucionConfirmar( this.idPaciente ).subscribe(resp => {
+    //       if(resp.length <= 0 || resp[0].id_estado != 1){
+    //         return
+    //       }else{
+    //         if(this.sv._dataEvolucion[0].evolucion != ''){
+    //           this.evolucionForm.patchValue({
+    //             evolucion:  this.sv._dataEvolucion[0].evolucion
+    //           })
+    //           sv._dataEvolucion[0].fecha_alta = resp[0].fecha_alta;
+    //           return;
+    //         }
+    //         resp.length <= 0 ? false : this.evolucionForm.patchValue({ evolucion: resp[0].evolucion });
+    //         sv._dataEvolucion[0].fecha_alta = resp[0].fecha_alta;
+    //         return;
+    //       }
+    //     }
+    //     )
+    //     if(this.sv._dataEvolucion[0].evolucion != ''){
+    //       this.evolucionForm.patchValue({
+    //         evolucion: this.sv._dataEvolucion[0].evolucion
+    //       })
+    //     }
+    //   }
      
 
-    })
+    // })
     
     this.sv._dataEvolucion[0].diagnostico != '' ? this.evolucionForm.patchValue({ evolucion: this.sv._dataEvolucion[0].evolucion }): false;
 
