@@ -35,7 +35,7 @@ export class VerEvolucionesComponent {
   ocultarTabla: boolean = false;
   ultimaFechaAlta: string = this.infoPaciente.fecha_ingreso;
   totalEvoluciones: number = 0;
-  estadoEpisodio: number = 0;
+  estadoEpisodio: number = 1;
   mostrarTablaEvoluciones:boolean = true;
   mostrarTablaHistorial: boolean = false;
   paginaSinRecargar: boolean = true;
@@ -161,6 +161,8 @@ export class VerEvolucionesComponent {
   }
 
   agregarEvolucion(){
+    this.router.navigate(['/inicio/pacientes/agregarEvolucion/paso1', this.idPaciente]);
+
     // this.evs.validarEvolucion( this.idPaciente ).subscribe(resp => {
     //   if(resp.ok){
     //     const { id } = this.rutaActiva.snapshot.params;
