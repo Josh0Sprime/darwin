@@ -11,7 +11,19 @@ import { ConfirmationService, MessageService, MenuItem } from 'primeng/api';
 })
 export class ListarComponent implements OnInit {
 
-  pacientes: Paciente[] = [];
+  pacientes: Paciente[] = [
+    {
+      id: 1,
+      nombres: "Fulano",
+      apellidos: "araya",
+      fecha_nacimiento: "12/20/1996",
+      run: "1111111-1",
+      dias_hospitalizacion: "12",
+      estado_paciente: "HOSPITALIZADO",
+      fecha_ingreso: `${ new Date() }`,
+      genero: "Hombre"
+    }
+  ]
   pacientesAlta: Paciente [] = [];
   pacientesFiltro: Paciente[] = [];
   pacientesFiltroAlta: Paciente[] = [];

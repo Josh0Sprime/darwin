@@ -17,20 +17,64 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class TablaEvolucionesComponent {
 
   idPaciente: number;
-  evoluciones: Evolucion[] = [];
+  evoluciones: Evolucion[] = [
+    {
+      diagnostico: "diagnostico fulanito",
+      estudios_complementarios: "estudios fulanito",
+      evolucion: "evolucion fulanito",
+      fecha_alta: `${ new Date() }`,
+      fecha_registro: `${ new Date() }`,
+      id: 1,
+      id_estado: 1,
+      id_medico: 1,
+      id_paciente: 1,
+      id_servicio: 1,
+      nombre_estado: "FINALIZADO",
+      plan: "plan fulanito",
+      apellidos_medico: "Cortes",
+      nombre_servicio: "servicio para fulanito",
+      nombres_medico: "pepe grillo",
+      run_medico: "2222222-2"
+    }
+  ];
   Array_detalleEvolucion: Evolucion[] = [];
   modalDetalle: boolean = false;
   verEvolucionConfirmada: boolean = false;
-  detalle_evolucion: any[] = [];
+  detalle_evolucion: any[] = [
+    {
+      fecha_nacimiento: `${ new Date() }`,
+      run_paciente: "1111111-1",
+      interno_medicina: "interno de prueba",
+      apellidos_paciente: "cortes",
+      nombres_paciente: "fulanito",
+      diagnostico: "diagnostico fulanito",
+      estudios_complementarios: "estudios fulanito",
+      evolucion: "evolucion fulanito",
+      fecha_alta: `${ new Date() }`,
+      fecha_ingreso: `${ new Date() }`,
+      fecha_registro: `${ new Date() }`,
+      id: 1,
+      id_estado: 1,
+      id_medico: 1,
+      id_paciente: 1,
+      id_servicio: 1,
+      nombre_estado: "FINALIZADO",
+      plan: "plan fulanito",
+      apellidos_medico: "Cortes",
+      nombre_servicio: "servicio para fulanito",
+      nombres_medico: "pepe grillo",
+      run_medico: "2222222-2"
+    }
+  ];;
 
   constructor(private fb: FormBuilder, private router: Router, private evs: EvolucionService, private  ms:MessageService, private rutaActiva: ActivatedRoute,
     private cs: ConfirmationService ) { 
     const { id } = rutaActiva.snapshot.params;
     this.idPaciente = id;
 
-    this.evs.obtenerEvolucionesPaciente(this.idPaciente).subscribe(response => {
-      this.evoluciones = response;
-    })
+    // this.evs.obtenerEvolucionesPaciente(this.idPaciente).subscribe(response => {
+    //   this.evoluciones = response;
+    // })
   }
 
   detalleEvolucion:FormGroup = this.fb.group({
@@ -45,21 +89,21 @@ export class TablaEvolucionesComponent {
 
   verDetalleEvolucion = (idEvolucion: number) => {
     this.modalDetalle = true
-
-    this.evs.obtenerDetalleDeEvolucion(idEvolucion).subscribe( response =>{
-      this.Array_detalleEvolucion = response;
+    this.detalleEvolucion.controls["medico"].setValue(this.evoluciones[0].nombres_medico);
+    this.detalleEvolucion.controls["servicio"].setValue(this.evoluciones[0].nombre_servicio);
+    this.detalleEvolucion.controls["fecha_alta"].setValue( new Date(this.evoluciones[0].fecha_alta).toLocaleDateString());
+    this.detalleEvolucion.controls["diagnostico"].setValue(this.evoluciones[0].diagnostico);
+    this.detalleEvolucion.controls["evolucion"].setValue(this.evoluciones[0].evolucion);
+    this.detalleEvolucion.controls["plan"].setValue(this.evoluciones[0].plan);
+    this.detalleEvolucion.controls["estudio"].setValue(this.evoluciones[0].estudios_complementarios);
+    console.log(this.detalleEvolucion.value);
+    // this.evs.obtenerDetalleDeEvolucion(idEvolucion).subscribe( response =>{
+    //   this.Array_detalleEvolucion = response;
     
-      let nombre_medico = `${this.Array_detalleEvolucion[0].nombres_medico?.split(' ',1)} ${this.Array_detalleEvolucion[0].apellidos_medico}`;
+    //   let nombre_medico = `${this.Array_detalleEvolucion[0].nombres_medico?.split(' ',1)} ${this.Array_detalleEvolucion[0].apellidos_medico}`;
   
-      this.detalleEvolucion.controls["medico"].setValue(nombre_medico);
-      this.detalleEvolucion.controls["servicio"].setValue(this.Array_detalleEvolucion[0].nombre_servicio);
-      this.detalleEvolucion.controls["fecha_alta"].setValue( new Date(this.Array_detalleEvolucion[0].fecha_alta).toLocaleDateString());
-      this.detalleEvolucion.controls["diagnostico"].setValue(this.Array_detalleEvolucion[0].diagnostico);
-      this.detalleEvolucion.controls["evolucion"].setValue(this.Array_detalleEvolucion[0].evolucion);
-      this.detalleEvolucion.controls["plan"].setValue(this.Array_detalleEvolucion[0].plan);
-      this.detalleEvolucion.controls["estudio"].setValue(this.Array_detalleEvolucion[0].estudios_complementarios);
 
-    })
+    // })
   }
 
 
@@ -84,8 +128,8 @@ export class TablaEvolucionesComponent {
 
   // obtener detalle completo de la evolucion para el pdf
   async detalle_evolucion_pdf(idEvolucion:number){
-   const response = await this.evs.obtenerTodosLosDetallesEvolucionPDFActual(idEvolucion).toPromise();
-   this.detalle_evolucion = response;
+  //  const response = await this.evs.obtenerTodosLosDetallesEvolucionPDFActual(idEvolucion).toPromise();
+  //  this.detalle_evolucion = response;
    this.GenerarPDF();
 
   }
@@ -106,7 +150,7 @@ export class TablaEvolucionesComponent {
 
   GenerarPDF = () => {
 
-
+    console.log(this.detalle_evolucion);
     //DATOS CABECERA
     let nombreCompletoPaciente = `${this.detalle_evolucion[0].nombres_paciente} ${this.detalle_evolucion[0].apellidos_paciente}`;
     let run_paciente = this.detalle_evolucion[0].run_paciente;

@@ -15,15 +15,25 @@ import { MenuItem, MessageService, Message } from 'primeng/api';
 })
 export class VerEvolucionesComponent {
 
-  infoPaciente: any = [];
-  evoluciones: Evolucion[] = [];
+  infoPaciente: any = {
+      id: 1,
+      nombres: "Fulano",
+      apellidos: "araya",
+      fecha_nacimiento: "12/20/1996",
+      run: "1111111-1",
+      dias_hospitalizacion: "12",
+      estado_paciente: "",
+      fecha_ingreso: `${ new Date() }`,
+      genero: "Hombre"
+  };
+
   Array_detalleEvolucion: Evolucion[] = [];
   idPaciente: number = 0;
-  edad:number | string = 0;
-  fecha_de_ingreso:string | Date = "";
+  edad:number | string = 45;
+  fecha_de_ingreso:string | Date = this.infoPaciente.fecha_ingreso;
   modalDetalle: boolean = false;
   ocultarTabla: boolean = false;
-  ultimaFechaAlta: string = "";
+  ultimaFechaAlta: string = this.infoPaciente.fecha_ingreso;
   totalEvoluciones: number = 0;
   estadoEpisodio: number = 0;
   mostrarTablaEvoluciones:boolean = true;
